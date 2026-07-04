@@ -1,0 +1,81 @@
+{
+  "details": [
+    {"type": "path", "d": "M622 394 L668 406 L624 417 Z", "fill": "#1a1a1a"},
+    {"type": "line", "x1": 612, "y1": 400, "x2": 578, "y2": 397},
+    {"type": "circle", "cx": 606, "cy": 401, "r": 10, "fill": "#ffffff"},
+    {"type": "circle", "cx": 606, "cy": 401, "r": 5, "fill": "#1a1a1a"}
+  ],
+  "zones": [
+    {"id": "branch", "name": "Branch & twig", "regions": [64, 12, 53, 70, 71, 17, 61, 48, 50, 66, 60, 15, 26, 19, 23, 49, 69, 63],
+     "dmc": "738", "blend": ["3045", "830", "838"], "stitch": "long and short",
+     "direction": "run stitches lengthways along each branch, following the grain",
+     "order": 1,
+     "arrows": [[55, 840, 190, 660, 300, 560], [300, 560, 380, 545], [530, 350, 552, 250, 560, 195]]},
+
+    {"id": "leaf", "name": "Leaf", "regions": [54, 51, 55],
+     "dmc": "524", "blend": ["3013"], "stitch": "long and short",
+     "direction": "angle rows outward from the central vein to the edge",
+     "order": 2,
+     "arrows": [[430, 610, 372, 592], [452, 670, 388, 660], [472, 730, 410, 726], [430, 610, 500, 596], [452, 675, 522, 664]]},
+
+    {"id": "tail", "name": "Tail feathers", "regions": [8, 6, 7, 28, 18],
+     "dmc": "3799", "blend": ["3371"], "stitch": "long and short",
+     "direction": "feathers radiate from the tail base out to the tips",
+     "order": 3,
+     "arrows": [[235, 345, 70, 128], [235, 345, 120, 112], [235, 345, 178, 112], [235, 345, 62, 180]]},
+
+    {"id": "rump_shadow", "name": "Tail-base shadow", "regions": [14, 13],
+     "dmc": "838", "blend": ["3371"], "stitch": "long and short",
+     "direction": "short rows tucking the dark base under the wing",
+     "order": 4,
+     "arrows": [[210, 275, 250, 335]]},
+
+    {"id": "rump", "name": "Orange rump patch", "regions": [24],
+     "dmc": "741", "blend": ["830"], "stitch": "long and short",
+     "direction": "follow the curve of the back",
+     "order": 5,
+     "arrows": [[255, 300, 212, 268]]},
+
+    {"id": "mantle", "name": "Black mantle", "regions": [27, 37, 43, 31],
+     "dmc": "3371", "blend": ["3799"], "stitch": "long and short",
+     "direction": "flow from the neck back towards the tail",
+     "order": 6,
+     "arrows": [[432, 378, 258, 332], [446, 405, 275, 362]]},
+
+    {"id": "wing", "name": "Wing flight feathers", "regions": [29, 32],
+     "dmc": "3799", "blend": ["3371", "798"], "stitch": "long and short + split stitch",
+     "direction": "long feathers sweep from the shoulder down and back; mark each with a fine split-stitch line",
+     "order": 7,
+     "arrows": [[268, 348, 362, 452], [288, 356, 396, 462], [308, 368, 412, 470]]},
+
+    {"id": "coverts", "name": "Wing coverts", "regions": [42, 44, 41, 45],
+     "dmc": "926", "blend": ["798"], "stitch": "long and short",
+     "direction": "small overlapping feathers stepping down towards the belly",
+     "order": 8,
+     "arrows": [[456, 438, 522, 470], [478, 448, 542, 476]]},
+
+    {"id": "flank", "name": "Orange flank", "regions": [46],
+     "dmc": "741", "blend": ["729"], "stitch": "long and short",
+     "direction": "curve with the side of the breast",
+     "order": 9,
+     "arrows": [[600, 462, 642, 492]]},
+
+    {"id": "belly", "name": "Yellow breast & belly", "regions": [39],
+     "dmc": "729", "blend": ["741"], "stitch": "long and short",
+     "direction": "rows curving down and around the breast, from throat to feet",
+     "order": 10,
+     "arrows": [[420, 452, 335, 508], [440, 470, 348, 522], [402, 456, 318, 492]]},
+
+    {"id": "head", "name": "Blue head", "regions": [36],
+     "dmc": "798", "blend": ["926"], "stitch": "long and short + split stitch",
+     "direction": "stitches radiate outward from around the eye",
+     "order": 11,
+     "arrows": [[600, 398, 516, 360], [602, 404, 502, 442], [598, 402, 472, 406], [604, 396, 560, 362]]},
+
+    {"id": "face", "name": "Eye & beak", "regions": [],
+     "dmc": "3371", "blend": ["535"], "stitch": "satin stitch + french knot",
+     "direction": "satin-stitch the beak from base to tip; the eye is a single french knot inside a white ring",
+     "order": 12, "label_at": [645, 407],
+     "arrows": []}
+  ]
+}

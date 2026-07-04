@@ -38,17 +38,25 @@ Follow the stage order and judgment points in CLAUDE.md:
 3. `embroider palette` — sanity-check the thread list; use `--overrides`
    for corrections. Show the user the palette card and ask if they want
    substitutions (they may own specific DMC colors already).
-4. `embroider vectorize` — **view** `work/lineart.svg` rendered; clean up
-   noisy paths before continuing. The line art must be pencil-traceable.
-5. `embroider pattern` — verify with pdftoppm that the sheet looks right.
-6. `embroider mockup` — view the colour guide; check leader lines land on
-   sensible regions.
-7. **Author `work/steps.json`** following the house rules in CLAUDE.md
-   (order of work, stitches, voice). This is creative writing, not
-   boilerplate — study `work/regions.json` so steps reference real
-   regions, and cover every region.
-8. `embroider steps` — fix any "uncovered regions" warning.
-9. `embroider guide` — render a few pages with pdftoppm and view them.
+4. `embroider vectorize` — produces draft region outlines + detail lines.
+5. **Author `work/zones.json`** — the heart of the work. Group the draft
+   regions into meaningful named zones (feather groups, body parts), each
+   with its DMC + blend threads, stitch, direction and `arrows`; add
+   `details` for fine features (eye, beak). See CLAUDE.md "Zones are the
+   unit". Author `arrows`/`details` against a 0.1 coordinate-grid overlay
+   of the source so they land accurately.
+6. `embroider zones` — **view** `work/lineart.png` (trace) and
+   `work/zonemap.png` (fill map). Iterate on zones.json until the trace is
+   clean and the fill map reads clearly.
+7. `embroider pattern` — verify with pdftoppm that the sheet looks right.
+8. `embroider mockup` — the colour reference page (real artwork + DMC
+   callouts).
+9. **Author `work/steps.json`** — one step per zone (or a couple grouped),
+   in work order, each step's `regions` = exactly that zone's regions so
+   the illustration matches the text. Follow the house voice/rules.
+10. `embroider steps` — fix any "uncovered regions" warning; spot-check a
+    couple of rendered `step_*.png` against their text.
+11. `embroider guide` — render several pages with pdftoppm and view them.
 
 ## 3. Deliver
 

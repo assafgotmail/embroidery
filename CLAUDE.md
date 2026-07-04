@@ -17,9 +17,11 @@ embroider init projects/<name> <image> --title "The ..." --hoop <inches>
 embroider analyze  projects/<name>            # K candidates -> pick K
 embroider regions  projects/<name> --k <K>    # segmentation -> curate
 embroider palette  projects/<name> [--budget N] [--overrides file.json]
-embroider vectorize projects/<name>           # -> work/lineart.svg, clean up
+embroider vectorize projects/<name>           # draft regions -> outlines + detail lines
+# author work/zones.json yourself (see below), then:
+embroider zones   projects/<name>             # -> work/lineart.svg + work/zonemap.svg
 embroider pattern  projects/<name>            # -> output/<name>_pattern_PRINT.pdf
-embroider mockup   projects/<name>            # -> colour guide assets
+embroider mockup   projects/<name>            # -> colour reference (artwork + callouts)
 # author work/steps.json yourself (see below), then:
 embroider steps    projects/<name>            # renders progress illustrations
 embroider guide    projects/<name>            # -> output/<name>_guide.pdf + assets/
@@ -74,6 +76,31 @@ Scan workflow, in order:
 5. **Author `work/steps.json`**: you write this by hand — it's the soul of
    the guide. See the schema in `embroidery/steps.py` and the house rules
    below. `embroider steps` warns about regions no step covers.
+
+## Zones are the unit, not colour blocks (important)
+
+Needle-painting fills *areas* with directional, shaded stitching — the
+feathers, fur and features emerge from stitch direction and tonal
+blending, not from separate colour patches. Colour clustering alone
+cannot infer these areas, so **you author them** in `work/zones.json`
+after `vectorize`, by grouping the draft colour regions into meaningful
+named zones (feather groups, body parts) and adding, per zone: the
+primary DMC + blend threads, the stitch, a stitch *direction*, and
+`arrows` (polyline guides in image pixels) showing that direction. Add
+fine hand-drawn features the clustering misses (eye, beak, whiskers) in
+the top-level `details` list. See the schema in `embroidery/zones.py`.
+
+`embroider zones` then renders three coupled things from that one file:
+the trace pattern (`lineart.svg` — zone outlines + faint direction guides
++ details), the fill map (`zonemap.svg` — flat DMC fills, code labels,
+blue direction arrows), and `zone_order.json` (work order for steps).
+Author `work/steps.json` so each step's `regions` are exactly the regions
+of the zone(s) it describes — the step illustration reveals precisely
+those regions, so mismatches mean the picture won't match the words.
+
+Use the coordinate-grid trick to author `arrows`/`details` accurately:
+render the source with a 0.1 grid overlay (see how the tanager was done)
+and read off image-pixel positions.
 
 ## House stitching rules (distilled from the four original guides)
 

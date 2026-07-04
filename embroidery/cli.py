@@ -82,6 +82,14 @@ def cmd_vectorize(args):
     print(f"{len(doc['paths'])} paths -> work/lineart.svg (review/clean up)")
 
 
+def cmd_zones(args):
+    from . import zones
+
+    info = zones.run(_load(args))
+    print(f"rendered {info['zones']} zones -> work/lineart.svg, work/zonemap.svg")
+    print("review work/zonemap.png and work/lineart.png")
+
+
 def cmd_pattern(args):
     from . import pattern
 
@@ -138,6 +146,7 @@ def main(argv=None):
                                   ("--overrides", str, None,
                                    "JSON file: {'r,g,b': 'dmc_code'}")]),
         ("vectorize", cmd_vectorize, []),
+        ("zones", cmd_zones, []),
         ("pattern", cmd_pattern, []),
         ("mockup", cmd_mockup, []),
         ("steps", cmd_steps, []),

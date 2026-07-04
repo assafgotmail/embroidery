@@ -69,13 +69,15 @@ def run(project: Project) -> dict:
     )
     base = _lineart_base(project, size)
 
-    all_ids = {rid for rid in doc["paths"]}
-    done: set[str] = set()
-    jobs_done = []
+    # A step reveals the regions of the zones it works. Steps carry an
+    # explicit "regions" list (authored to match the zones in the text), so
+    # the illustration always shows exactly the area the step describes.
+    done: set[int] = set()
     for step in steps["steps"]:
-        done |= {str(r) for r in step.get("regions", [])}
-        done_int = {int(r) for r in done}
-        mask = np.isin(labels_img, list(done_int))
+        done |= {int(r) for r in step.get("regions", [])}
+        mask = np.isin(labels_img, list(done)) if done else np.zeros(
+            labels_img.shape, bool
+        )
         # soften the reveal edge so partially-stitched areas don't look cut out
         mask = binary_dilation(mask, iterations=1)
 
@@ -84,9 +86,8 @@ def run(project: Project) -> dict:
         canvas = canvas.convert("RGBA")
         canvas.alpha_composite(base)
         n = step["n"]
-        out = project.work_dir / f"step_{n:02d}.png"
-        canvas.convert("RGB").save(out)
-        jobs_done.append(n)
+        canvas.convert("RGB").save(project.work_dir / f"step_{n:02d}.png")
 
-    missing = sorted(all_ids - done, key=lambda s: int(s))
+    all_ids = {int(rid) for rid in doc["paths"]}
+    missing = sorted(all_ids - done)
     return {"steps": len(steps["steps"]), "uncovered_regions": missing}

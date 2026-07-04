@@ -1,0 +1,190 @@
+[
+  {
+    "id": "branch",
+    "name": "Branch & twig",
+    "dmc": "738",
+    "blend": [
+      "3045",
+      "830",
+      "838"
+    ],
+    "stitch": "long and short",
+    "regions": [
+      64,
+      12,
+      53,
+      70,
+      71,
+      17,
+      61,
+      48,
+      50,
+      66,
+      60,
+      15,
+      26,
+      19,
+      23,
+      49,
+      69,
+      63
+    ],
+    "order": 1
+  },
+  {
+    "id": "leaf",
+    "name": "Leaf",
+    "dmc": "524",
+    "blend": [
+      "3013"
+    ],
+    "stitch": "long and short",
+    "regions": [
+      54,
+      51,
+      55
+    ],
+    "order": 2
+  },
+  {
+    "id": "tail",
+    "name": "Tail feathers",
+    "dmc": "3799",
+    "blend": [
+      "3371"
+    ],
+    "stitch": "long and short",
+    "regions": [
+      8,
+      6,
+      7,
+      28,
+      18
+    ],
+    "order": 3
+  },
+  {
+    "id": "rump_shadow",
+    "name": "Tail-base shadow",
+    "dmc": "838",
+    "blend": [
+      "3371"
+    ],
+    "stitch": "long and short",
+    "regions": [
+      14,
+      13
+    ],
+    "order": 4
+  },
+  {
+    "id": "rump",
+    "name": "Orange rump patch",
+    "dmc": "741",
+    "blend": [
+      "830"
+    ],
+    "stitch": "long and short",
+    "regions": [
+      24
+    ],
+    "order": 5
+  },
+  {
+    "id": "mantle",
+    "name": "Black mantle",
+    "dmc": "3371",
+    "blend": [
+      "3799"
+    ],
+    "stitch": "long and short",
+    "regions": [
+      27,
+      37,
+      43,
+      31
+    ],
+    "order": 6
+  },
+  {
+    "id": "wing",
+    "name": "Wing flight feathers",
+    "dmc": "3799",
+    "blend": [
+      "3371",
+      "798"
+    ],
+    "stitch": "long and short + split stitch",
+    "regions": [
+      29,
+      32
+    ],
+    "order": 7
+  },
+  {
+    "id": "coverts",
+    "name": "Wing coverts",
+    "dmc": "926",
+    "blend": [
+      "798"
+    ],
+    "stitch": "long and short",
+    "regions": [
+      42,
+      44,
+      41,
+      45
+    ],
+    "order": 8
+  },
+  {
+    "id": "flank",
+    "name": "Orange flank",
+    "dmc": "741",
+    "blend": [
+      "729"
+    ],
+    "stitch": "long and short",
+    "regions": [
+      46
+    ],
+    "order": 9
+  },
+  {
+    "id": "belly",
+    "name": "Yellow breast & belly",
+    "dmc": "729",
+    "blend": [
+      "741"
+    ],
+    "stitch": "long and short",
+    "regions": [
+      39
+    ],
+    "order": 10
+  },
+  {
+    "id": "head",
+    "name": "Blue head",
+    "dmc": "798",
+    "blend": [
+      "926"
+    ],
+    "stitch": "long and short + split stitch",
+    "regions": [
+      36
+    ],
+    "order": 11
+  },
+  {
+    "id": "face",
+    "name": "Eye & beak",
+    "dmc": "3371",
+    "blend": [
+      "535"
+    ],
+    "stitch": "satin stitch + french knot",
+    "regions": [],
+    "order": 12
+  }
+]

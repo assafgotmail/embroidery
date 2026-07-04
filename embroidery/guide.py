@@ -61,7 +61,8 @@ def run(project: Project) -> dict:
 
     toc_titles = (
         ["Introduction", "Contents", "What you will need", "Tools explained",
-         "How to trace and transfer", "Thread colour guide", "Stitch guide",
+         "How to trace and transfer", "Fill map & stitch direction",
+         "Thread colour guide", "Stitch guide",
          "Stitch guide p.2", "Starting to stitch"]
         + [f"Step-by-step{'' if i == 0 else f' p.{i + 1}'}"
            for i in range(len(step_pages))]
@@ -76,6 +77,7 @@ def run(project: Project) -> dict:
         assets={
             "color_mockup": "color_mockup.png",
             "color_guide": "color_guide.png",
+            "zonemap": "zonemap.png",
         },
         toc=toc,
         step_pages=step_pages,
@@ -94,9 +96,10 @@ def run(project: Project) -> dict:
 
 def _export_assets(project: Project, palette: dict) -> None:
     keep = [
-        "lineart.svg", "color_mockup.svg", "color_mockup.png",
+        "lineart.svg", "color_mockup.png", "zonemap.svg", "zonemap.png",
         "color_guide.svg", "color_guide.png", "palette_card.png",
         "paths.json", "palette.json", "regions.json", "steps.json",
+        "zones.json", "zone_order.json",
     ]
     for name in keep:
         src = project.work_dir / name

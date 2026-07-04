@@ -297,12 +297,28 @@
   <div class="footer"><span class="pageno">6</span></div>
 </div>
 
+{# -------------------------------------------------------- fill map #}
+<div class="page">
+  <div class="eyebrow">{{ project.title }}</div>
+  <h1>Fill map &amp; stitch direction</h1>
+  <div class="colorguide"><img src="{{ assets.zonemap }}"></div>
+  <p class="note" style="text-align:center; margin-top:0.15in">Each area is
+  filled with its DMC colour and labelled with the code; the blue arrows
+  show the direction to work your long and short stitch. Where two areas
+  meet, blend the colours into one another rather than leaving a hard edge
+  &mdash; use the thread colour guide overleaf as your shading reference.</p>
+  <div class="footer"><span class="pageno">7</span></div>
+</div>
+
 {# ----------------------------------------------- thread colour guide #}
 <div class="page">
   <div class="eyebrow">{{ project.title }}</div>
   <h1>Thread colour guide</h1>
   <div class="colorguide"><img src="{{ assets.color_guide }}"></div>
-  <div class="footer"><span class="pageno">7</span></div>
+  <p class="note" style="text-align:center; margin-top:0.1in">The original
+  artwork with each thread called out &mdash; your reference for how the
+  colours shade and blend into one another as you fill each area.</p>
+  <div class="footer"><span class="pageno">8</span></div>
 </div>
 
 {# ----------------------------------------------------- stitch guide #}
@@ -330,7 +346,7 @@
   bring your needle UP through the previous row and down into the unstitched
   fabric. Coming up from the unstitched fabric and down into the thread
   creates unsightly holes.</p>
-  <div class="footer"><span class="pageno">8</span></div>
+  <div class="footer"><span class="pageno">9</span></div>
 </div>
 
 <div class="page">
@@ -357,7 +373,7 @@
       came up, and pull through. Voila &mdash; a knot! Two strands of floss
       make a plumper knot.</p></div>
   </div>
-  <div class="footer"><span class="pageno">9</span></div>
+  <div class="footer"><span class="pageno">10</span></div>
 </div>
 
 {# ------------------------------------------------ starting to stitch #}
@@ -404,7 +420,7 @@
       <p><b>4.</b> Trim the tail and embroider away. Finish the same
       way.</p></div>
   </div>
-  <div class="footer"><span class="pageno">10</span></div>
+  <div class="footer"><span class="pageno">11</span></div>
 </div>
 
 {# ----------------------------------------------------- step-by-step #}
@@ -435,7 +451,7 @@
       color: {{ '#fff' if t.dark else '#111' }}">{{ t.code }}</span>
     {% endfor %}
   </div>
-  <div class="footer"><span class="pageno">{{ 10 + loop.index }}</span></div>
+  <div class="footer"><span class="pageno">{{ 11 + loop.index }}</span></div>
 </div>
 {% endfor %}
 
@@ -461,7 +477,7 @@
   <p style="margin-top: 0.3in">Congratulations on finishing
   <b>{{ project.title }}</b> &mdash; give yourself a big pat on the back for
   your patience and determination. I hope you enjoyed painting with thread!</p>
-  <div class="footer"><span class="pageno">{{ 11 + step_pages | length }}</span></div>
+  <div class="footer"><span class="pageno">{{ 12 + step_pages | length }}</span></div>
 </div>
 
 </body>

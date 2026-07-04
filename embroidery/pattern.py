@@ -58,6 +58,15 @@ def run(project: Project) -> dict:
     mm_per_px = doc["mm_per_px"]
     art_w, art_h = img_w * mm_per_px, img_h * mm_per_px
 
+    # Prefer the hand-curated zone-based trace (work/lineart.svg, written by
+    # the `zones` stage). Fall back to the raw auto-vectorized line art.
+    lineart_path = project.work_dir / "lineart.svg"
+    art_svg = (
+        lineart_path.read_text()
+        if lineart_path.exists()
+        else lineart_svg(doc)
+    )
+
     hoop = project.hoop_mm
     landscape = hoop + 2 * PAGE_MARGIN_MM > A4[0]
     page_w, page_h = (A4[1], A4[0]) if landscape else A4
@@ -89,7 +98,7 @@ def run(project: Project) -> dict:
         art_hh=art_h / 2,
         front_y=cy - r + 4,
         tacks="".join(tacks),
-        svg=lineart_svg(doc),
+        svg=art_svg,
         title=project.title,
         hoop_in=f"{project.hoop_inches:g}",
         hoop_mm=f"{hoop:.0f}",
