@@ -1,41 +1,58 @@
 """Stage 6: Thread Colour Guide assets.
 
-* ``color_mockup.svg`` — plain flat-color render of the finished design
-* ``color_guide.svg`` — the same render with a swatch legend and leader
-  lines from each thread's largest region to its swatch, like the
-  "Thread Colour guide" page of the original PDFs.
+Needle-painting blends threads and follows fine structure, so the colour
+guide shows the *real artwork* (cleaned of paper grain) — every wash and
+gradient intact — rather than flat colour blocks. Leader lines call out
+which DMC thread matches each area; the stitcher blends towards those.
+
+* ``color_mockup.png`` — the cleaned artwork alone (used on the cover)
+* ``color_guide.png``  — the artwork with DMC callouts and a swatch legend
 """
 
 from __future__ import annotations
 
+import base64
+import io
 import json
 
+from PIL import Image
+
+from .imageio import load_for_project
 from .project import Project
 from .render import svgs_to_pngs
-from .svg import color_svg, _sorted_items
+from .svg import _sorted_items
 
 LEGEND_W_FRAC = 0.42  # legend column width relative to image width
+
+
+def _display_artwork(project: Project) -> Image.Image:
+    """The cleaned source artwork at working resolution (paper grain and
+    scanner noise smoothed away, all painterly shading kept)."""
+    import numpy as np
+
+    rgb = load_for_project(project)
+    return Image.fromarray(np.asarray(rgb, dtype="uint8"))
+
+
+def _data_uri(img: Image.Image) -> str:
+    buf = io.BytesIO()
+    img.save(buf, format="PNG")
+    return "data:image/png;base64," + base64.b64encode(buf.getvalue()).decode()
 
 
 def run(project: Project) -> dict:
     doc = json.loads((project.work_dir / "paths.json").read_text())
     palette = json.loads((project.work_dir / "palette.json").read_text())
-    dmc_hex = {t["code"]: t["hex"] for t in palette["threads"]}
 
-    mockup = color_svg(doc, dmc_hex)
-    (project.work_dir / "color_mockup.svg").write_text(mockup)
+    art = _display_artwork(project)
+    art.save(project.work_dir / "color_mockup.png")
 
-    guide = _guide_with_legend(doc, palette, dmc_hex)
+    guide = _guide_with_legend(doc, palette, _data_uri(art))
     (project.work_dir / "color_guide.svg").write_text(guide)
-
-    svgs_to_pngs(
-        [
-            (project.work_dir / "color_mockup.svg",
-             project.work_dir / "color_mockup.png", 1400),
-            (project.work_dir / "color_guide.svg",
-             project.work_dir / "color_guide.png", 1800),
-        ]
-    )
+    svgs_to_pngs([
+        (project.work_dir / "color_guide.svg",
+         project.work_dir / "color_guide.png", 1800),
+    ])
     return {"threads": len(palette["threads"])}
 
 
@@ -56,29 +73,28 @@ def _largest_region_per_thread(doc: dict) -> dict[str, tuple[float, float]]:
     return best
 
 
-def _guide_with_legend(doc: dict, palette: dict, dmc_hex: dict) -> str:
+def _guide_with_legend(doc: dict, palette: dict, art_uri: str) -> str:
     img_w, img_h = doc["image_size"]
     legend_w = img_w * LEGEND_W_FRAC
     total_w = img_w + legend_w
     threads = palette["threads"]
     anchors = _largest_region_per_thread(doc)
 
-    # order legend rows by the vertical position of their anchor region to
-    # keep leader lines from crossing too much
+    # order legend rows by the vertical position of their anchor region so
+    # leader lines cross as little as possible
     threads = sorted(threads, key=lambda t: anchors.get(t["code"], (0, 0))[1])
 
     row_h = img_h / max(len(threads), 1)
     sw_h = min(row_h * 0.62, img_h * 0.05)
     font = max(img_w * 0.018, 12)
 
-    # color_svg emits a full <svg>; nest it as an inner viewport
     out = [
         f'<svg xmlns="http://www.w3.org/2000/svg" '
         f'viewBox="0 0 {total_w:.0f} {img_h}" width="{total_w:.0f}" '
         f'height="{img_h}">',
         '<rect width="100%" height="100%" fill="#ffffff"/>',
-        f'<svg x="0" y="0" width="{img_w}" height="{img_h}" '
-        f'viewBox="0 0 {img_w} {img_h}">{color_svg(doc, dmc_hex)}</svg>',
+        f'<image x="0" y="0" width="{img_w}" height="{img_h}" '
+        f'href="{art_uri}"/>',
     ]
     lx = img_w + legend_w * 0.28
     for i, t in enumerate(threads):

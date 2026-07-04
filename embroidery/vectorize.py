@@ -90,13 +90,19 @@ def run(project: Project) -> dict:
             "rgb": r["rgb"],
         }
 
+    from . import detail
+
+    detail_lines = detail.run(project)["lines"]
+
     doc = {
         "image_size": rj["image_size"],
         "mm_per_px": mm_per_px,
         "paths": paths,
+        "detail_lines": detail_lines,
     }
     (project.work_dir / "paths.json").write_text(json.dumps(doc))
 
     svg = lineart_svg(doc)
     (project.work_dir / "lineart.svg").write_text(svg)
+    doc["_n_detail"] = len(detail_lines)
     return doc

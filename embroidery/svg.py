@@ -44,12 +44,33 @@ def _svg_open(doc: dict, extra: str = "") -> str:
     )
 
 
+def _polyline_d(line: list[list[float]]) -> str:
+    pts = " L ".join(f"{x:.2f} {y:.2f}" for x, y in line)
+    return f"M {pts}"
+
+
 def lineart_svg(doc: dict, stroke: str = "#1a1a1a", stroke_mm: float = 0.35) -> str:
-    """Trace-pattern line art: every region outlined, dots as filled circles."""
+    """Trace-pattern line art: region outlines, fine internal detail lines
+    (feathers, veins, the eye), and dots as filled circles. Detail lines are
+    drawn thinner than the region outlines so the major shapes still read."""
     sw = stroke_mm / doc["mm_per_px"]
+    detail_sw = sw * 0.62
     out = [_svg_open(doc)]
-    out.append(f'<g fill="none" stroke="{stroke}" stroke-width="{sw:.2f}" '
-               'stroke-linejoin="round">')
+
+    # fine detail / stitch-direction lines underneath the region outlines
+    detail = doc.get("detail_lines") or []
+    if detail:
+        out.append(
+            f'<g class="detail" fill="none" stroke="{stroke}" '
+            f'stroke-width="{detail_sw:.2f}" stroke-linecap="round" '
+            'stroke-linejoin="round" opacity="0.85">'
+        )
+        for line in detail:
+            out.append(f'<path d="{_polyline_d(line)}"/>')
+        out.append("</g>")
+
+    out.append(f'<g class="regions" fill="none" stroke="{stroke}" '
+               f'stroke-width="{sw:.2f}" stroke-linejoin="round">')
     for rid, entry in _sorted_items(doc):
         if entry["kind"] == "dot":
             cx, cy = entry["center"]

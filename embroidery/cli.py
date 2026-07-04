@@ -95,7 +95,7 @@ def cmd_mockup(args):
     from . import mockup
 
     mockup.run(_load(args))
-    print("wrote work/color_mockup.{svg,png} and work/color_guide.{svg,png}")
+    print("wrote work/color_mockup.png and work/color_guide.{svg,png}")
 
 
 def cmd_steps(args):
