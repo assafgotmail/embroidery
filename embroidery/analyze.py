@@ -10,7 +10,7 @@ from PIL import Image
 from skimage.color import rgb2lab, lab2rgb
 from sklearn.cluster import KMeans
 
-from .imageio import load_rgb
+from .imageio import load_for_project
 from .project import Project
 
 DEFAULT_KS = (8, 12, 16, 20)
@@ -38,7 +38,7 @@ def _swatch_strip(centers: np.ndarray, shares: np.ndarray, sw: int = 80) -> Imag
 
 
 def run(project: Project, ks=DEFAULT_KS) -> dict:
-    rgb = load_rgb(project.source_path)
+    rgb = load_for_project(project)
     h, w, _ = rgb.shape
     report = {"image_size": [w, h], "candidates": {}}
 

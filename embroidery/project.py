@@ -23,6 +23,16 @@ class Project:
     # Minimum area a region must cover on fabric before it is merged
     # away or turned into french-knot dots. ~2mm x 2mm of stitching.
     min_region_mm2: float = 4.0
+    # "flat" for vector-style illustrations; "scan" for photographed or
+    # scanned artwork (watercolour plates, painted pages): enables
+    # edge-preserving smoothing before quantization and paper-colour
+    # background detection, and defaults to higher contour fidelity.
+    input_kind: str = "flat"
+    # Contour fidelity: simplification tolerance on fabric (mm) and the
+    # number of corner-cutting smoothing passes. Lower/fewer = truer to
+    # the source shapes.
+    simplify_mm: float = 0.25
+    smooth_iterations: int = 2
     root: Path = field(default=None, repr=False)
 
     # ---- paths ----------------------------------------------------------

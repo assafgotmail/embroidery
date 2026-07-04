@@ -27,3 +27,27 @@ def load_rgb(path: str | Path, max_px: int = MAX_WORKING_PX) -> np.ndarray:
         s = max_px / max(w, h)
         img = img.resize((round(w * s), round(h * s)), Image.LANCZOS)
     return np.asarray(img, dtype=np.uint8)
+
+
+def smooth_scan(rgb: np.ndarray) -> np.ndarray:
+    """Edge-preserving smoothing for scanned/painted artwork: flattens
+    watercolour washes and paper grain into coherent colour areas while
+    keeping the true contours crisp, so segmentation follows the actual
+    shapes of the artwork."""
+    from skimage.restoration import denoise_bilateral
+
+    out = denoise_bilateral(
+        rgb.astype(np.float64) / 255.0,
+        sigma_color=0.09,
+        sigma_spatial=4,
+        channel_axis=-1,
+    )
+    return (np.clip(out, 0, 1) * 255).astype(np.uint8)
+
+
+def load_for_project(project) -> np.ndarray:
+    """Load the project's source image with kind-appropriate preprocessing."""
+    rgb = load_rgb(project.source_path)
+    if getattr(project, "input_kind", "flat") == "scan":
+        rgb = smooth_scan(rgb)
+    return rgb

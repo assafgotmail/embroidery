@@ -27,6 +27,30 @@ embroider guide    projects/<name>            # -> output/<name>_guide.pdf + ass
 
 Use the `/new-project` skill to run the whole flow interactively.
 
+## Input kinds: flat vs scan
+
+`embroider init --kind scan` is for photographed/scanned artwork
+(watercolour plates, painted or printed pages). It enables
+edge-preserving smoothing before quantization, detects the *paper*
+colour (not just white) as unstitched background, and defaults to
+higher contour fidelity (`simplify_mm 0.18`, one smoothing pass).
+Default `--kind flat` is for clean digital illustrations.
+
+Scan workflow, in order:
+1. The image must exist **as a file**. Images pasted inline in chat never
+   reach the filesystem — ask the user to upload the file if needed.
+2. **Never redraw the source from memory.** Shape accuracy comes from the
+   pipeline tracing the actual image; a hand redraw loses the authentic
+   contours. Redrawing is allowed only when the user explicitly asks for
+   a stylized reinterpretation.
+3. Paint out captions/plate numbers with the surrounding paper colour
+   (PIL: sample the median colour next to the text box, fill the box)
+   before `init`. Prefer painting-over to cropping — crops can clip art.
+4. Expect more regions and a noisier palette than flat art: blurred edges
+   soften blacks (310 may match to 3799 etc.) and split washes into
+   bands. Curate harder: use `--overrides` to snap colors back to what
+   the artwork means, not what the scan faded them to.
+
 ## Judgment points (do these, don't skip)
 
 1. **Pick K** (after `analyze`): view `work/analyze_k*.png`. Choose the

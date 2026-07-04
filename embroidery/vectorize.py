@@ -16,7 +16,6 @@ from skimage import measure
 from .project import Project
 from .svg import lineart_svg
 
-SIMPLIFY_MM = 0.25  # positional tolerance on fabric; below pencil-line width
 MIN_RING_MM2 = 0.5  # drop micro-rings that survive as noise
 
 
@@ -31,7 +30,8 @@ def _chaikin(pts: np.ndarray, iterations: int = 2) -> np.ndarray:
     return pts
 
 
-def _region_rings(mask: np.ndarray, tol_px: float, min_area_px: float):
+def _region_rings(mask: np.ndarray, tol_px: float, min_area_px: float,
+                  smooth_iterations: int = 2):
     padded = np.pad(mask.astype(float), 1)
     rings = []
     for contour in measure.find_contours(padded, 0.5):
@@ -50,7 +50,7 @@ def _region_rings(mask: np.ndarray, tol_px: float, min_area_px: float):
             simplified = p.exterior.simplify(tol_px, preserve_topology=True)
             pts = np.asarray(simplified.coords)[:-1]
             if len(pts) >= 3:
-                rings.append(_chaikin(pts).round(2).tolist())
+                rings.append(_chaikin(pts, smooth_iterations).round(2).tolist())
     return rings
 
 
@@ -58,8 +58,9 @@ def run(project: Project) -> dict:
     rj = json.loads((project.work_dir / "regions.json").read_text())
     labels = np.load(project.work_dir / "region_labels.npy")
     mm_per_px = rj["mm_per_px"]
-    tol_px = SIMPLIFY_MM / mm_per_px
+    tol_px = project.simplify_mm / mm_per_px
     min_area_px = MIN_RING_MM2 / (mm_per_px**2)
+    smooth_iterations = project.smooth_iterations
 
     paths: dict[str, dict] = {}
     for r in rj["regions"]:
@@ -78,7 +79,8 @@ def run(project: Project) -> dict:
                 "rgb": r["rgb"],
             }
             continue
-        rings = _region_rings(labels == rid, tol_px, min_area_px)
+        rings = _region_rings(labels == rid, tol_px, min_area_px,
+                              smooth_iterations)
         if not rings:
             continue
         paths[str(rid)] = {

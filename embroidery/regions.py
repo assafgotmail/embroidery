@@ -18,12 +18,12 @@ from skimage.color import deltaE_ciede2000, rgb2lab
 from skimage.segmentation import find_boundaries
 
 from .analyze import _quantize
-from .imageio import load_rgb
+from .imageio import load_for_project
 from .project import Project
 
 DOT_MIN_MM2 = 0.4  # below this even a french knot won't read; always merge
 DOT_ROUNDNESS = 0.55  # 4*pi*A/P^2 threshold for "this is a dot"
-WHITE_DE_BG = 6.0  # region this close to white touching the border = fabric
+PAPER_DE_BG = 8.0  # region this close to the paper colour at the border = bg
 
 
 def _dominant_neighbor(labels: np.ndarray, region_mask: np.ndarray, exclude: int) -> int:
@@ -36,7 +36,7 @@ def _dominant_neighbor(labels: np.ndarray, region_mask: np.ndarray, exclude: int
 
 
 def run(project: Project, k: int, seed: int = 0) -> dict:
-    rgb = load_rgb(project.source_path)
+    rgb = load_for_project(project)
     h, w, _ = rgb.shape
     mm_per_px = project.mm_per_px(w, h)
     mm2_per_px = mm_per_px**2
@@ -81,15 +81,21 @@ def run(project: Project, k: int, seed: int = 0) -> dict:
     }
 
     # --- background detection --------------------------------------------
+    # The fabric/paper is whatever colour dominates the image border —
+    # pure white for digital art, cream for a scanned plate. Any region of
+    # (near-)that colour touching the border is unstitched background.
     lab_centers = rgb2lab(centers.reshape(1, -1, 3) / 255.0).reshape(-1, 3)
-    white = rgb2lab(np.ones((1, 1, 3))).reshape(3)
+    border_px = np.concatenate(
+        [rgb[0, :], rgb[-1, :], rgb[:, 0], rgb[:, -1]]
+    ).astype(float)
+    paper = rgb2lab((np.median(border_px, axis=0) / 255.0).reshape(1, 1, 3)).reshape(3)
     border = np.zeros_like(labels, bool)
     border[0, :] = border[-1, :] = border[:, 0] = border[:, -1] = True
     background: set[int] = set()
     for p in measure.regionprops(labels):
         ci = region_color[p.label]
-        de = float(deltaE_ciede2000(lab_centers[ci], white))
-        if de < WHITE_DE_BG and border[labels == p.label].any():
+        de = float(deltaE_ciede2000(lab_centers[ci], paper))
+        if de < PAPER_DE_BG and border[labels == p.label].any():
             background.add(p.label)
 
     # --- dot re-detection on final labels ---------------------------------

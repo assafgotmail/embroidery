@@ -25,15 +25,20 @@ def cmd_init(args):
     src = Path(args.image)
     if not src.exists():
         sys.exit(f"image not found: {src}")
+    kw = {}
+    if args.kind == "scan":
+        # scanned artwork: keep contours as true to the source as possible
+        kw = {"input_kind": "scan", "simplify_mm": 0.18, "smooth_iterations": 1}
     p = Project.create(
         root,
         title=args.title or root.name.replace("-", " ").replace("_", " ").title(),
         source_image=src.name,
         hoop_inches=args.hoop,
+        **kw,
     )
     shutil.copy2(src, p.input_dir / src.name)
     print(f"created {root}/project.json  (hoop: {p.hoop_inches:g}\", "
-          f"design ~{p.design_mm:.0f}mm)")
+          f"design ~{p.design_mm:.0f}mm, kind: {p.input_kind})")
 
 
 def cmd_analyze(args):
@@ -120,6 +125,10 @@ def main(argv=None):
     p.add_argument("--title", default=None)
     p.add_argument("--hoop", type=float, default=5.0,
                    help='hoop diameter in inches (default 5)')
+    p.add_argument("--kind", choices=["flat", "scan"], default="flat",
+                   help="'scan' for photographed/scanned artwork: smooths "
+                        "washes before quantization, detects the paper "
+                        "colour as background, keeps contours truer")
     p.set_defaults(fn=cmd_init)
 
     for name, fn, extra in [

@@ -12,9 +12,14 @@ defines the judgment points and house stitching rules this skill relies on.
 ## 1. Gather inputs
 
 Ask the user (AskUserQuestion) for anything not already provided:
-- **The image** — a flat illustration or sketch works best. If it's an
-  uncolored sketch, tell the user you'll propose a palette and get their
-  approval on colors before stitching order.
+- **The image** — it must exist as a file on disk. Images pasted inline in
+  chat do NOT reach the filesystem: if the user pasted one, ask them to
+  upload it as a file attachment instead. Never redraw the image from
+  memory — shape accuracy comes from the pipeline tracing the real file
+  (see "Input kinds" in CLAUDE.md). For scanned/photographed artwork use
+  `--kind scan` and paint out captions first. If it's an uncolored
+  sketch, tell the user you'll propose a palette and get their approval
+  on colors before stitching order.
 - **Project title** — e.g. "The Woodland Toadstool" (used on every page).
 - **Hoop size in inches** — default 5. Anything from 3 to 10 works; the
   pattern sheet flips to landscape automatically for hoops over ~7.4".
