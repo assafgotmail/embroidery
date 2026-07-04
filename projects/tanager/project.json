@@ -1,8 +1,11 @@
 {
   "name": "tanager",
   "title": "The Darwin's Tanager",
-  "hoop_inches": 5.0,
+  "hoop_inches": 6.0,
   "design_fraction": 0.75,
-  "source_image": "tanager.png",
-  "min_region_mm2": 4.0
+  "source_image": "tanager_real_clean.png",
+  "min_region_mm2": 12.0,
+  "input_kind": "scan",
+  "simplify_mm": 0.22,
+  "smooth_iterations": 2
 }

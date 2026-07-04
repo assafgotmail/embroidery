@@ -1,39 +1,111 @@
 {
-  "budget": 14,
+  "budget": 16,
   "threads": [
     {
-      "code": "841",
-      "name": "Beige Brown Lt",
-      "hex": "#B69B7E",
+      "code": "3799",
+      "name": "Pewter Gray Vy Dk",
+      "hex": "#424242",
       "rgb": [
-        182,
-        155,
-        126
+        66,
+        66,
+        66
       ],
-      "area_mm2": 272.9,
+      "area_mm2": 352.3,
       "source_colors": [
         [
-          186,
-          156,
-          125
+          50,
+          51,
+          47
         ]
       ]
     },
     {
-      "code": "799",
-      "name": "Delft Blue Medium",
-      "hex": "#748EB6",
+      "code": "3371",
+      "name": "Black Brown",
+      "hex": "#1E1108",
       "rgb": [
-        116,
-        142,
-        182
+        30,
+        17,
+        8
       ],
-      "area_mm2": 272.2,
+      "area_mm2": 252.1,
       "source_colors": [
         [
-          98,
-          129,
-          177
+          29,
+          26,
+          18
+        ]
+      ]
+    },
+    {
+      "code": "524",
+      "name": "Fern Green Vy Lt",
+      "hex": "#C4CDAC",
+      "rgb": [
+        196,
+        205,
+        172
+      ],
+      "area_mm2": 217.1,
+      "source_colors": [
+        [
+          205,
+          201,
+          158
+        ]
+      ]
+    },
+    {
+      "code": "738",
+      "name": "Tan Very Light",
+      "hex": "#ECCC9E",
+      "rgb": [
+        236,
+        204,
+        158
+      ],
+      "area_mm2": 168.2,
+      "source_colors": [
+        [
+          229,
+          210,
+          175
+        ]
+      ]
+    },
+    {
+      "code": "838",
+      "name": "Beige Brown Vy Dk",
+      "hex": "#594937",
+      "rgb": [
+        89,
+        73,
+        55
+      ],
+      "area_mm2": 131.2,
+      "source_colors": [
+        [
+          95,
+          77,
+          41
+        ]
+      ]
+    },
+    {
+      "code": "798",
+      "name": "Delft Blue Dark",
+      "hex": "#466A8E",
+      "rgb": [
+        70,
+        106,
+        142
+      ],
+      "area_mm2": 114.8,
+      "source_colors": [
+        [
+          84,
+          111,
+          135
         ]
       ]
     },
@@ -46,12 +118,12 @@
         185,
         130
       ],
-      "area_mm2": 222.6,
+      "area_mm2": 109.3,
       "source_colors": [
         [
-          179,
-          189,
-          147
+          180,
+          174,
+          121
         ]
       ]
     },
@@ -64,192 +136,102 @@
         163,
         43
       ],
-      "area_mm2": 184.8,
+      "area_mm2": 95.9,
       "source_colors": [
         [
-          241,
-          159,
-          46
+          233,
+          147,
+          18
         ]
       ]
     },
     {
-      "code": "809",
-      "name": "Delft Blue",
-      "hex": "#94A8C6",
+      "code": "729",
+      "name": "Old Gold Medium",
+      "hex": "#D0A53E",
       "rgb": [
-        148,
-        168,
-        198
+        208,
+        165,
+        62
       ],
-      "area_mm2": 161.3,
+      "area_mm2": 93.6,
       "source_colors": [
         [
-          140,
-          169,
-          205
+          220,
+          174,
+          45
         ]
       ]
     },
     {
-      "code": "797",
-      "name": "Royal Blue",
-      "hex": "#13477D",
+      "code": "3045",
+      "name": "Yellow Beige Dk",
+      "hex": "#BC966A",
       "rgb": [
-        19,
-        71,
-        125
-      ],
-      "area_mm2": 152.1,
-      "source_colors": [
-        [
-          51,
-          80,
-          126
-        ]
-      ]
-    },
-    {
-      "code": "611",
-      "name": "Drab Brown",
-      "hex": "#967656",
-      "rgb": [
+        188,
         150,
-        118,
-        86
+        106
       ],
-      "area_mm2": 84.5,
+      "area_mm2": 79.9,
+      "source_colors": [
+        [
+          183,
+          156,
+          115
+        ]
+      ]
+    },
+    {
+      "code": "926",
+      "name": "Gray Green Med",
+      "hex": "#98AEAE",
+      "rgb": [
+        152,
+        174,
+        174
+      ],
+      "area_mm2": 67.9,
       "source_colors": [
         [
           145,
-          113,
-          83
+          162,
+          171
         ]
       ]
     },
     {
-      "code": "310",
-      "name": "Black",
-      "hex": "#000000",
-      "rgb": [
-        0,
-        0,
-        0
-      ],
-      "area_mm2": 82.9,
-      "source_colors": [
-        [
-          28,
-          28,
-          28
-        ]
-      ]
-    },
-    {
-      "code": "989",
-      "name": "Forest Green",
-      "hex": "#8DA675",
+      "code": "830",
+      "name": "Golden Olive Dk",
+      "hex": "#8D784B",
       "rgb": [
         141,
-        166,
-        117
+        120,
+        75
       ],
-      "area_mm2": 77.9,
+      "area_mm2": 42.8,
       "source_colors": [
         [
-          149,
-          163,
-          117
+          148,
+          113,
+          58
         ]
       ]
     },
     {
-      "code": "742",
-      "name": "Tangerine Light",
-      "hex": "#FFBF57",
+      "code": "535",
+      "name": "Ash Gray Vy Lt",
+      "hex": "#636458",
       "rgb": [
-        255,
-        191,
-        87
+        99,
+        100,
+        88
       ],
-      "area_mm2": 55.5,
+      "area_mm2": 0.8,
       "source_colors": [
         [
-          243,
-          182,
-          63
-        ]
-      ]
-    },
-    {
-      "code": "936",
-      "name": "Avocado Grn V Dk",
-      "hex": "#4C5826",
-      "rgb": [
-        76,
-        88,
-        38
-      ],
-      "area_mm2": 46.3,
-      "source_colors": [
-        [
-          85,
-          98,
-          46
-        ]
-      ]
-    },
-    {
-      "code": "3031",
-      "name": "Mocha Brown Vy Dk",
-      "hex": "#4B3C2A",
-      "rgb": [
-        75,
-        60,
-        42
-      ],
-      "area_mm2": 28.9,
-      "source_colors": [
-        [
-          74,
-          58,
-          41
-        ]
-      ]
-    },
-    {
-      "code": "169",
-      "name": "Pewter Light",
-      "hex": "#848484",
-      "rgb": [
-        132,
-        132,
-        132
-      ],
-      "area_mm2": 7.7,
-      "source_colors": [
-        [
-          126,
-          132,
-          138
-        ]
-      ]
-    },
-    {
-      "code": "B5200",
-      "name": "Snow White",
-      "hex": "#FFFFFF",
-      "rgb": [
-        255,
-        255,
-        255
-      ],
-      "area_mm2": 5.0,
-      "source_colors": [
-        [
-          254,
-          254,
-          254
+          96,
+          100,
+          96
         ]
       ]
     }

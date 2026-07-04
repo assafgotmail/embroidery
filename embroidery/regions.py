@@ -91,11 +91,18 @@ def run(project: Project, k: int, seed: int = 0) -> dict:
     paper = rgb2lab((np.median(border_px, axis=0) / 255.0).reshape(1, 1, 3)).reshape(3)
     border = np.zeros_like(labels, bool)
     border[0, :] = border[-1, :] = border[:, 0] = border[:, -1] = True
+    # In scan mode the paper often shows through enclosed gaps (between tail
+    # feathers, sky holes) that never touch the image border, and a graded
+    # scan splits the paper into several near-identical clusters. Treat any
+    # near-paper region as unstitched background wherever it sits. For flat
+    # art we keep the stricter border-touch test so a legitimately white
+    # element in the middle of the design isn't dropped.
+    scan_mode = getattr(project, "input_kind", "flat") == "scan"
     background: set[int] = set()
     for p in measure.regionprops(labels):
         ci = region_color[p.label]
         de = float(deltaE_ciede2000(lab_centers[ci], paper))
-        if de < PAPER_DE_BG and border[labels == p.label].any():
+        if de < PAPER_DE_BG and (scan_mode or border[labels == p.label].any()):
             background.add(p.label)
 
     # --- dot re-detection on final labels ---------------------------------
