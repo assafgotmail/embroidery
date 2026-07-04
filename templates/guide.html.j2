@@ -1,0 +1,468 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root {
+    --ink: #222;
+    --muted: #777;
+    --accent: #2b48c8;
+    --cream: #faf8f4;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @page { size: 11.111in 8.333in; margin: 0; }
+  body { font-family: Georgia, 'Times New Roman', serif; color: var(--ink); }
+  .page {
+    width: 11.111in; height: 8.333in; overflow: hidden;
+    page-break-after: always; position: relative;
+    background: white; padding: 0.7in 0.9in 0.55in;
+  }
+  .eyebrow {
+    font-family: Helvetica, Arial, sans-serif; font-size: 10pt;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+    margin-bottom: 4pt;
+  }
+  h1 {
+    font-family: Helvetica, Arial, sans-serif; font-weight: 800;
+    font-size: 30pt; margin-bottom: 14pt;
+  }
+  h1::before {
+    content: ""; display: inline-block; width: 0.75in; height: 4pt;
+    background: var(--ink); margin-right: 0.18in; vertical-align: 0.28em;
+  }
+  p { font-size: 11.5pt; line-height: 1.55; margin-bottom: 9pt; }
+  .footer {
+    position: absolute; bottom: 0.3in; left: 0; right: 0; text-align: center;
+    font-family: Helvetica, Arial, sans-serif; font-size: 8pt;
+    letter-spacing: 0.14em; color: var(--muted); text-transform: uppercase;
+  }
+  .footer .pageno {
+    display: inline-block; background: var(--ink); color: white;
+    border-radius: 50%; width: 14pt; height: 14pt; line-height: 14pt;
+  }
+
+  /* cover */
+  .cover { background: var(--cream); padding: 0; }
+  .cover .art {
+    position: absolute; inset: 0; display: flex;
+    align-items: center; justify-content: center;
+  }
+  .cover .art img { max-width: 62%; max-height: 82%; }
+  .cover .titleblock { position: absolute; top: 0.7in; left: 0.8in; }
+  .cover .titleblock .big {
+    font-family: Helvetica, Arial, sans-serif; font-weight: 800;
+    font-size: 44pt; line-height: 1.02; letter-spacing: 0.01em;
+  }
+  .cover .titleblock .sub {
+    font-family: Helvetica, Arial, sans-serif; font-size: 12pt;
+    color: var(--muted); margin-top: 6pt;
+  }
+  .cover .side {
+    position: absolute; right: 0.35in; bottom: 0.5in;
+    writing-mode: vertical-rl; font-family: Helvetica, Arial, sans-serif;
+    font-size: 10pt; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* contents */
+  .toc { columns: 2; column-gap: 0.8in; font-family: Helvetica, Arial, sans-serif; }
+  .toc div { font-size: 12pt; padding: 6pt 0; }
+  .toc b { font-size: 14pt; margin-right: 8pt; }
+
+  /* cards (tools explained / stitch guide) */
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.25in; }
+  .cards.two { grid-template-columns: repeat(2, 1fr); }
+  .card { border: 1px solid #ccc; padding: 0.18in; }
+  .card h3 {
+    font-family: Helvetica, Arial, sans-serif; font-size: 10.5pt;
+    background: var(--ink); color: white; display: inline-block;
+    padding: 2pt 8pt; margin-bottom: 6pt;
+  }
+  .card .sugg { font-style: italic; font-size: 9pt; color: var(--muted);
+    margin-bottom: 5pt; text-decoration: underline; }
+  .card p { font-size: 9.5pt; line-height: 1.45; margin-bottom: 5pt; }
+
+  /* numbered columns (trace & transfer) */
+  .numcols { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.18in; }
+  .numcols .col { border: 1px solid #ccc; padding: 0.15in; }
+  .numcols .col .n {
+    font-family: Helvetica, Arial, sans-serif; font-weight: 800;
+    font-size: 20pt; text-align: center; display: block; margin-bottom: 6pt;
+  }
+  .numcols .col p { font-size: 8.6pt; line-height: 1.4; }
+
+  /* color guide */
+  .colorguide { text-align: center; }
+  .colorguide img { max-height: 6.1in; max-width: 100%; }
+
+  /* materials */
+  .materials { display: flex; gap: 0.6in; }
+  .materials ul { font-size: 12pt; line-height: 2.0; margin-left: 0.3in; }
+  .threadgrid { display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 6pt 18pt; align-content: start; }
+  .threadgrid .th { display: flex; align-items: center; gap: 8pt;
+    font-family: Helvetica, Arial, sans-serif; font-size: 10pt; }
+  .threadgrid .sw { width: 34pt; height: 16pt; border: 1px solid #444;
+    display: inline-block; }
+
+  /* steps */
+  .steps { display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0.22in 0.45in; height: 5.9in; }
+  .step { display: flex; gap: 0.2in; }
+  .step img { width: 2.45in; height: 2.45in; object-fit: contain;
+    border: 1px solid #e4ded4; background: var(--cream); }
+  .step .txt .n { font-family: Helvetica, Arial, sans-serif;
+    font-weight: 800; font-size: 16pt; display: block; margin-bottom: 4pt; }
+  .step .txt p { font-size: 9.8pt; line-height: 1.45; }
+  .step .txt b { font-family: Helvetica, Arial, sans-serif; }
+  .colorkey {
+    position: absolute; bottom: 0.62in; left: 0.9in; right: 0.9in;
+    display: flex; gap: 4pt; justify-content: center; align-items: center;
+  }
+  .colorkey .label { font-family: Helvetica, Arial, sans-serif;
+    font-size: 7.5pt; letter-spacing: 0.1em; color: var(--muted);
+    margin-right: 6pt; }
+  .colorkey .k { font-family: Helvetica, Arial, sans-serif; font-size: 8pt;
+    padding: 3pt 7pt; border: 1px solid #999; }
+
+  .note { font-size: 9.5pt; font-style: italic; color: var(--muted); }
+  .meta { font-family: Helvetica, Arial, sans-serif; font-size: 10.5pt;
+    color: var(--muted); margin-bottom: 12pt; }
+  .meta b { color: var(--ink); }
+</style>
+</head>
+<body>
+
+{# ---------------------------------------------------------- cover #}
+<div class="page cover">
+  <div class="art"><img src="{{ assets.color_mockup }}"></div>
+  <div class="titleblock">
+    <div class="big">PAINT WITH<br>THREAD</div>
+    <div class="sub">A guide to contemporary needlepainting</div>
+  </div>
+  <div class="side">How to embroider — {{ project.title }}</div>
+</div>
+
+{# --------------------------------------------------- introduction #}
+<div class="page">
+  <div class="eyebrow">{{ project.title }}</div>
+  <h1>Introduction</h1>
+  <p>Hi there! Thank you so much for picking up this guide to contemporary
+  needlepainting. Whether you are a newbie or an experienced stitcher, I hope
+  you enjoy embroidering this design and learn something new along the way.</p>
+  <p>This pattern requires only {{ palette.threads | length }} colours, but
+  please feel free to experiment and use as many or as few as you like! The
+  pattern comes with clear colour guides and instructions, but you are always
+  encouraged to add your own personal touch. If you feel more comfortable
+  using another technique, or want to use more than one strand of floss at a
+  time, please do so! You don&rsquo;t even have to keep it in the hoop &mdash;
+  you can embroider this design on your jeans, jackets, shirts, handbags,
+  cushions, hats or whatever else takes your fancy.</p>
+  <p>The embroidery technique used throughout is referred to as
+  needlepainting, though you may know it as long and short stitch, thread
+  painting or silk shading. It is essentially a very free and non-restrictive
+  way to embroider once you get the hang of it.</p>
+  <p>In an age where everything is instantaneous, it&rsquo;s important to take
+  the time to create something with your own two hands. Embroidery encourages
+  you to sit down, breathe, and ease into an evening (or a whole day!) of
+  creativity and relaxation. I hope you fall in love with this ancient art and
+  show the world how great something can be if you simply take the time to
+  create it.</p>
+  <div class="footer"><span class="pageno">2</span></div>
+</div>
+
+{# ------------------------------------------------------- contents #}
+<div class="page">
+  <div class="eyebrow">{{ project.title }}</div>
+  <h1>Contents</h1>
+  <div class="toc">
+    {% for entry in toc %}
+    <div><b>{{ '%02d' % entry.page }}</b> {{ entry.title }}</div>
+    {% endfor %}
+  </div>
+  <div class="footer"><span class="pageno">3</span></div>
+</div>
+
+{# ------------------------------------------------ what you'll need #}
+<div class="page">
+  <div class="eyebrow">{{ project.title }}</div>
+  <h1>What you will need</h1>
+  <div class="materials">
+    <ul>
+      <li>A {{ hoop_display }} embroidery hoop</li>
+      <li>Medium-weight fabric (cotton calico works great)</li>
+      <li>{{ palette.threads | length }} colours of DMC six-strand floss &rarr;</li>
+      <li>Embroidery needle(s), size 5&ndash;10</li>
+      <li>A sharp 2B&ndash;6B pencil</li>
+      <li>Fabric scissors &amp; floss scissors</li>
+      <li>White tack and a printer (for the trace pattern)</li>
+    </ul>
+    <div class="threadgrid">
+      {% for t in palette.threads %}
+      <div class="th"><span class="sw" style="background: {{ t.hex }}"></span>
+        <span><b>{{ t.code }}</b> &nbsp;{{ t.name }}</span></div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="footer"><span class="pageno">4</span></div>
+</div>
+
+{# -------------------------------------------------- tools explained #}
+<div class="page">
+  <div class="eyebrow">{{ project.title }}</div>
+  <h1>Tools explained</h1>
+  <div class="cards">
+    <div class="card"><h3>FABRIC</h3>
+      <div class="sugg">Suggested: medium-weight cotton calico</div>
+      <p>Choose a medium-weight fabric with a close weave &mdash; not
+      transparent, but not so heavy that it is hard to pull your needle
+      through. Avoid fabric with any stretch in it. If this is your first
+      time, a light fabric makes it much easier to trace the pattern. Cotton
+      and linen are affordable and look great; old pillowcases can be a great
+      way to start.</p></div>
+    <div class="card"><h3>HOOP</h3>
+      <div class="sugg">Suggested: {{ hoop_display }} wooden hoop</div>
+      <p>The most important factor is that the hoop holds your fabric
+      drum-tight. Wooden hoops grip the fabric well and the screw is sturdy
+      and strong. If the fabric loosens whilst embroidering it can cause
+      unsightly puckering; if you struggle to keep it tight, consider wrapping
+      fabric tape around the inner hoop.</p></div>
+    <div class="card"><h3>THREAD</h3>
+      <div class="sugg">Suggested: DMC stranded cotton</div>
+      <p>DMC stranded cotton comes in around 500 colours and the sheen gives
+      your finished embroidery a superior quality. There are six divisible
+      strands, which lets you vary the weight of your stitches. Use one strand
+      at a time for the finest blending; no more than two if you want extra
+      speed. The {{ palette.threads | length }} colours for this pattern are
+      listed on p.4.</p></div>
+    <div class="card"><h3>NEEDLE</h3>
+      <div class="sugg">Suggested: size 5/10 embroidery needles</div>
+      <p>If you are a beginner, use a needle with the smallest eye you feel
+      comfortable threading. Look for needles with an elongated eye and a
+      sharp point. As you get quicker at threading, go down in size &mdash;
+      the thinner the needle, the easier it is to embroider through dense
+      stitching.</p></div>
+    <div class="card"><h3>LIGHT</h3>
+      <div class="sugg">Suggested: daylight lamp or magnifier</div>
+      <p>An embroidery light isn&rsquo;t essential, but a white source of
+      light takes the strain off your eyes and helps you see colours
+      accurately. On a budget, a cool white/daylight bulb in an overhead lamp
+      works just fine for stitching at night.</p></div>
+    <div class="card"><h3>PENCIL</h3>
+      <div class="sugg">Suggested: extremely sharp 2B&ndash;6B pencil</div>
+      <p>For transferring the pattern, a pencil is great because you can get a
+      really sharp point, which helps with tracing the finer details. If you
+      make a tiny mistake, dab some white tack onto the fabric to fade the
+      line. A softer pencil shows up on fabric without having to press too
+      hard.</p></div>
+  </div>
+  <div class="footer"><span class="pageno">5</span></div>
+</div>
+
+{# ---------------------------------------------- trace and transfer #}
+<div class="page">
+  <div class="eyebrow">{{ project.title }}</div>
+  <h1>How to trace and transfer</h1>
+  <div class="numcols">
+    <div class="col"><span class="n">01</span>
+      <p>Print the separate pattern PDF (the file with
+      &lsquo;PRINT&rsquo; in the name) at <b>100% scale</b> &mdash; do not use
+      &ldquo;fit to page&rdquo;. The dashed circle should measure
+      {{ '%.0f' % hoop_mm }}mm across, matching your
+      {{ hoop_display }} hoop.</p></div>
+    <div class="col"><span class="n">02</span>
+      <p>Cut along the dashed line so you are left with a circular piece of
+      paper with the design in the centre.</p></div>
+    <div class="col"><span class="n">03</span>
+      <p>Cut a square of pre-ironed fabric roughly 2&ndash;3 inches larger
+      than the hoop on all sides. Place the inner hoop down, lay the fabric
+      over it, then press the outer hoop with the screw on top. Keep pulling
+      the fabric on opposing sides while slowly tightening the screw until
+      the fabric is extremely drum-tight.</p></div>
+    <div class="col"><span class="n">04</span>
+      <p>Place four tiny pieces of white tack on the corner marks on the
+      front of the paper circle. Flip the hoop over and lightly press the
+      paper, front side down, onto the back of the fabric. Hold it up to the
+      light and adjust until the design sits in the centre.</p></div>
+    <div class="col"><span class="n">05</span>
+      <p>With the paper attached to the back, hold the hoop up to a lamp or
+      window. Trace the outline you can see through the fabric with a sharp
+      pencil. Don&rsquo;t move the paper once you begin. Remove the paper
+      &mdash; you are ready to embroider!</p></div>
+  </div>
+  <p class="note" style="margin-top: 0.25in"><b>Tip:</b> the tracing process
+  is more vital than you may think. If you rush this step, your finished
+  embroidery will not be as high quality. Sharpen your pencil as soon as it
+  starts to go blunt.</p>
+  <div class="footer"><span class="pageno">6</span></div>
+</div>
+
+{# ----------------------------------------------- thread colour guide #}
+<div class="page">
+  <div class="eyebrow">{{ project.title }}</div>
+  <h1>Thread colour guide</h1>
+  <div class="colorguide"><img src="{{ assets.color_guide }}"></div>
+  <div class="footer"><span class="pageno">7</span></div>
+</div>
+
+{# ----------------------------------------------------- stitch guide #}
+<div class="page">
+  <div class="eyebrow">{{ project.title }}</div>
+  <h1>Stitch guide</h1>
+  <p>Long and short stitch is an embroidery technique that is fantastic for
+  filling large surface areas of fabric. It is essentially like painting on a
+  canvas, but rather than using paint, you are using thread. The shading is
+  acquired by using a different coloured thread for subsequent rows.</p>
+  <p>You are embroidering one short stitch, then one long stitch, in a series
+  of rows &mdash; but don&rsquo;t worry about making each alternate stitch
+  equal to the last. The more you stagger your stitches at different lengths,
+  the better it looks: you want the longer stitches to be fighting to get
+  into each other&rsquo;s rows. Ensure the stitches are tightly packed
+  together and try not to overlap them &mdash; you don&rsquo;t want to see
+  any spaces.</p>
+  <p>Shading doesn&rsquo;t always follow straight lines. Where there is a
+  curve, angle your rows to follow it, the same way water flows around a
+  river bend. This is especially important with animals and plants: embroider
+  with their natural curves and the motion of their fur or petals. If you get
+  too caught up keeping everything neat and straight without changing
+  direction, it will look unnatural.</p>
+  <p class="note"><b>Tip:</b> when working the second or subsequent rows,
+  bring your needle UP through the previous row and down into the unstitched
+  fabric. Coming up from the unstitched fabric and down into the thread
+  creates unsightly holes.</p>
+  <div class="footer"><span class="pageno">8</span></div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">{{ project.title }}</div>
+  <h1>Stitch guide p.2</h1>
+  <div class="cards">
+    <div class="card"><h3>LONG AND SHORT STITCH</h3>
+      <p>Begin at the simplest place to start your first row. Thread your
+      needle with a knot on the end and come up from the back to make your
+      first stitch. Make another adjacent stitch with a different length.
+      Continue until you have a row with no gaps, then work the next row in
+      the same colour or a new one, always staggering the lengths.</p></div>
+    <div class="card"><h3>SPLIT STITCH</h3>
+      <p>Split stitch follows a line and is great for outlines. Come up from
+      the back and make one small stitch. Then come up in front of that
+      stitch and go back down through the middle of it, splitting the thread.
+      Keep the stitches as tiny as you can, especially on curves &mdash;
+      that&rsquo;s the trick to making it look good.</p></div>
+    <div class="card"><h3>FRENCH KNOT</h3>
+      <p>After anchoring your thread, pull it to the front and hold it tautly
+      upwards with your free hand. Place the needle against the front of the
+      thread and wind the thread around it twice. Still holding the thread
+      taut, push the needle into the fabric as close as possible to where it
+      came up, and pull through. Voila &mdash; a knot! Two strands of floss
+      make a plumper knot.</p></div>
+  </div>
+  <div class="footer"><span class="pageno">9</span></div>
+</div>
+
+{# ------------------------------------------------ starting to stitch #}
+<div class="page">
+  <div class="eyebrow">{{ project.title }}</div>
+  <h1>Starting to stitch</h1>
+  <div class="cards two">
+    <div class="card"><h3>DIVIDE THE STRANDS</h3>
+      <p>Before you begin stitching, separate the six strands of thread:</p>
+      <p><b>1.</b> Cut the length of thread you&rsquo;re going to use from
+      the skein &mdash; about the length of your forearm.</p>
+      <p><b>2.</b> Gently separate one strand of thread from the six, and you
+      are ready to thread the needle. Use one strand at a time for the finest
+      blending (two at most, or the embroidery can become
+      &lsquo;lumpy&rsquo;).</p></div>
+    <div class="card"><h3>THREAD THE NEEDLE</h3>
+      <p><b>1.</b> Dampen the tip of the strand on a wet kitchen towel (or
+      use your saliva!).</p>
+      <p><b>2.</b> Hold the thread between thumb and index finger and pinch
+      until you can barely see it.</p>
+      <p><b>3.</b> Your fingers now support the thread rather than it being
+      floppy &mdash; ease it through the eye of the needle. Don&rsquo;t knot
+      the end near the needle; leave a couple of inches loose.</p>
+      <p class="note">Tip: if the thread is frayed at the end, give it a
+      little trim to help it go through easier.</p></div>
+    <div class="card"><h3>OPTION ONE &mdash; MAKE A KNOT</h3>
+      <p>The simplest way to start and end your stitches, though knots can
+      unravel over a very long time.</p>
+      <p><b>1.</b> After threading your needle, create a tiny knot at the far
+      end of the thread.</p>
+      <p><b>2.</b> Embroider your stitches.</p>
+      <p><b>3.</b> When you have nearly used up the thread, take it to the
+      back of the hoop and knot it as close to the fabric as
+      possible.</p></div>
+    <div class="card"><h3>OPTION TWO &mdash; ANCHOR THE THREAD</h3>
+      <p>Worth learning if the piece will be washed or worn:</p>
+      <p><b>1.</b> Choose a starting point <i>inside</i> an area you will
+      cover with stitching.</p>
+      <p><b>2.</b> Make the tiniest stitch you can, without a knot, leaving a
+      tiny tail on the back.</p>
+      <p><b>3.</b> Come back up near the first stitch and go down through the
+      centre of it, splitting it &mdash; it should look like a tiny capital
+      &ldquo;T&rdquo;.</p>
+      <p><b>4.</b> Trim the tail and embroider away. Finish the same
+      way.</p></div>
+  </div>
+  <div class="footer"><span class="pageno">10</span></div>
+</div>
+
+{# ----------------------------------------------------- step-by-step #}
+{% for page in step_pages %}
+<div class="page">
+  <div class="eyebrow">{{ project.title }}</div>
+  <h1>Step-by-step{% if not loop.first %} p.{{ loop.index }}{% endif %}</h1>
+  {% if loop.first %}
+  <div class="meta">Expected embroidery time until completion:
+    <b>{{ time_estimate }}</b> &nbsp;&middot;&nbsp; keep the colour guide on
+    p.7 as a constant reference throughout.</div>
+  {% endif %}
+  <div class="steps">
+    {% for step in page %}
+    <div class="step">
+      <img src="{{ step.png }}">
+      <div class="txt">
+        <span class="n">{{ '%02d' % step.n }}</span>
+        <p>{{ step.html }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="colorkey">
+    <span class="label">DMC colour key</span>
+    {% for t in palette.threads %}
+    <span class="k" style="background: {{ t.hex }};
+      color: {{ '#fff' if t.dark else '#111' }}">{{ t.code }}</span>
+    {% endfor %}
+  </div>
+  <div class="footer"><span class="pageno">{{ 10 + loop.index }}</span></div>
+</div>
+{% endfor %}
+
+{# ---------------------------------------------------------- finish #}
+<div class="page">
+  <div class="eyebrow">{{ project.title }}</div>
+  <h1>How to finish your hoop</h1>
+  <div class="cards two">
+    <div class="card"><h3>TRIM THE HOOP</h3>
+      <p>Cut the excess fabric around the hoop, leaving roughly a one-inch
+      border. Pinking shears reduce the chances of the fabric
+      fraying.</p></div>
+    <div class="card"><h3>THE DRAWSTRING METHOD</h3>
+      <p><b>1.</b> Thread three strands of embroidery floss and tie a large
+      knot at the end.</p>
+      <p><b>2.</b> Cut enough floss to go around the whole circle.</p>
+      <p><b>3.</b> Sew a simple running stitch around the whole border, then
+      pull the thread tight (needle still attached) &mdash; it should all
+      satisfyingly come together at the back.</p>
+      <p><b>4.</b> Tie a sturdy knot so it doesn&rsquo;t come apart, and
+      you&rsquo;re done!</p></div>
+  </div>
+  <p style="margin-top: 0.3in">Congratulations on finishing
+  <b>{{ project.title }}</b> &mdash; give yourself a big pat on the back for
+  your patience and determination. I hope you enjoyed painting with thread!</p>
+  <div class="footer"><span class="pageno">{{ 11 + step_pages | length }}</span></div>
+</div>
+
+</body>
+</html>

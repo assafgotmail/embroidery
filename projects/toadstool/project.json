@@ -1,0 +1,8 @@
+{
+  "name": "toadstool",
+  "title": "The Woodland Toadstool",
+  "hoop_inches": 5.0,
+  "design_fraction": 0.75,
+  "source_image": "sample_toadstool.png",
+  "min_region_mm2": 4.0
+}

@@ -1,0 +1,185 @@
+{
+  "budget": 16,
+  "threads": [
+    {
+      "code": "608",
+      "name": "Burnt Orange Bright",
+      "hex": "#FD5D35",
+      "rgb": [
+        253,
+        93,
+        53
+      ],
+      "area_mm2": 817.1,
+      "source_colors": [
+        [
+          223,
+          85,
+          56
+        ]
+      ]
+    },
+    {
+      "code": "3830",
+      "name": "Terra Cotta",
+      "hex": "#B95544",
+      "rgb": [
+        185,
+        85,
+        68
+      ],
+      "area_mm2": 506.8,
+      "source_colors": [
+        [
+          199,
+          64,
+          42
+        ]
+      ]
+    },
+    {
+      "code": "Ecru",
+      "name": "Ecru",
+      "hex": "#F0EADA",
+      "rgb": [
+        240,
+        234,
+        218
+      ],
+      "area_mm2": 413.8,
+      "source_colors": [
+        [
+          243,
+          235,
+          219
+        ]
+      ]
+    },
+    {
+      "code": "470",
+      "name": "Avocado Grn Lt",
+      "hex": "#94AB4F",
+      "rgb": [
+        148,
+        171,
+        79
+      ],
+      "area_mm2": 282.0,
+      "source_colors": [
+        [
+          143,
+          173,
+          92
+        ]
+      ]
+    },
+    {
+      "code": "3364",
+      "name": "Pine Green",
+      "hex": "#83975F",
+      "rgb": [
+        131,
+        151,
+        95
+      ],
+      "area_mm2": 226.5,
+      "source_colors": [
+        [
+          122,
+          154,
+          74
+        ]
+      ]
+    },
+    {
+      "code": "3047",
+      "name": "Yellow Beige Lt",
+      "hex": "#E7D6C1",
+      "rgb": [
+        231,
+        214,
+        193
+      ],
+      "area_mm2": 149.5,
+      "source_colors": [
+        [
+          223,
+          207,
+          178
+        ]
+      ]
+    },
+    {
+      "code": "3777",
+      "name": "Terra Cotta Vy Dk",
+      "hex": "#863022",
+      "rgb": [
+        134,
+        48,
+        34
+      ],
+      "area_mm2": 124.5,
+      "source_colors": [
+        [
+          143,
+          43,
+          28
+        ]
+      ]
+    },
+    {
+      "code": "904",
+      "name": "Parrot Green V Dk",
+      "hex": "#557822",
+      "rgb": [
+        85,
+        120,
+        34
+      ],
+      "area_mm2": 97.4,
+      "source_colors": [
+        [
+          91,
+          122,
+          59
+        ]
+      ]
+    },
+    {
+      "code": "3821",
+      "name": "Straw",
+      "hex": "#F3CE75",
+      "rgb": [
+        243,
+        206,
+        117
+      ],
+      "area_mm2": 17.3,
+      "source_colors": [
+        [
+          243,
+          206,
+          117
+        ]
+      ]
+    },
+    {
+      "code": "986",
+      "name": "Forest Green Vy Dk",
+      "hex": "#405230",
+      "rgb": [
+        64,
+        82,
+        48
+      ],
+      "area_mm2": 8.4,
+      "source_colors": [
+        [
+          59,
+          85,
+          37
+        ]
+      ]
+    }
+  ]
+}
